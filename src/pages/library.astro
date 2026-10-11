@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../data/index.json';
+---
+<Base cur="library" title="Library">
+  <main class="page">
+    <div class="rows">
+      {data.collections.map((c, i) => (
+        <a class="lc" href={`/collection/${c.slug}/`} style={`animation-delay:${i * 90 + 150}ms`}>
+          <img src={c.cover.thumb} alt={c.cover.alt} transition:name={`cover-${c.slug}`} />
+          <div class="cap mono">{c.title} — {c.year}</div>
+        </a>
+      ))}
+    </div>
+  </main>
+</Base>

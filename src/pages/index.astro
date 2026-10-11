@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../data/index.json';
+import site from '../site.js';
+const feat = data.collections.filter((c) => c.featured).sort((a, b) => a.order - b.order);
+const pos = ['tl', 'tr', 'bl'];
+const mosaic = data.collections.flatMap((c) => c.images.slice(0, 2)).slice(0, 6);
+const total = data.collections.reduce((n, c) => n + c.images.length, 0);
+---
+<Base bar={false}>
+  <main class="home">
+    <div class="grid" id="grid">
+      {feat.map((c, i) => (
+        <a class={`cell ${pos[i]}`} data-pos={pos[i]} data-tone={c.cover.lum > 0.5 ? 'light' : 'dark'} href={`/collection/${c.slug}/`}>
+          <img src={c.cover.full} alt={c.cover.alt} transition:name={`cover-${c.slug}`} />
+          <span class="tag mono">[{String(i + 1).padStart(2, '0')}]</span>
+          <div class="info"><h3>{c.title}</h3><p>{c.description}</p><span class="mono">{c.film} — {c.images.length} frames</span></div>
+        </a>
+      ))}
+      <div class="logo"><b>{site.name}</b><span class="mono">{site.role}</span></div>
+      <a class="cell br" data-pos="br" href="/library/">
+        <div class="mosaic">{mosaic.map((m) => <img src={m.thumb} alt="" loading="eager" />)}</div>
+        <span class="mono">[Archive]</span>
+        <div><h3>Full library <span class="arrow">→</span></h3><span class="mono">{data.collections.length} collections · {total} photographs</span></div>
+      </a>
+    </div>
+  </main>
+</Base>
+<script>
+  function init() {
+    const g = document.getElementById('grid');
+    if (!g) return;
+    g.querySelectorAll<HTMLElement>('[data-pos]').forEach((el) =>
+      el.addEventListener('mouseenter', () => (g.dataset.h = el.dataset.pos)));
+    g.addEventListener('mouseleave', () => delete g.dataset.h);
+  }
+  document.addEventListener('astro:page-load', init);
+</script>
