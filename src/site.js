@@ -1,1 +1,1 @@
-export default { name: 'Elena Marsh', role: 'Photographer', email: 'hello@example.com' };
+export default { name: 'Torsten', role: 'Photographer', email: '#' };
