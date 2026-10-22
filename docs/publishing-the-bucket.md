@@ -67,6 +67,19 @@ Flags: `--dry-run`, `--prune`, `--yes` (skip confirmations).
 
 Uploads run one Wrangler process per file, so a big first publish takes a few minutes. Later publishes only send new files.
 
+**How much will it upload?** `publish` (and `publish --dry-run`) prints the number of new files and their total size, with a
+line per collection, before asking you to confirm. The confirmation question includes the size too.
+
+## How much is in the bucket?
+
+```bash
+pnpm content size
+```
+Shows each collection's size on this computer, how much hasn't been published yet, and the object count and total size
+Cloudflare reports for the bucket (read with `wrangler r2 bucket info`). If the bucket total is much larger than your
+drafts, leftover files from removed photos are probably in there: run `pnpm content publish --prune`. Without a Wrangler
+login it still shows the local numbers. Sizes use decimal units (1 MB = 1,000,000 bytes).
+
 ## Verify
 
 ```bash

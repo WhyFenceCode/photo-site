@@ -156,6 +156,7 @@
   @media (min-width: 761px) {
     .viewer { position: absolute; inset: 0; display: block; padding: 0; }
     .stage { position: absolute; inset: 70px 150px 60px 70px; justify-content: center; }
+    .viewer.single .stage { right: 70px; } /* no thumbnail strip to leave room for */
     .hero { flex: 1; min-height: 0; align-items: center; }
     .hero-in { height: 100%; }
     .hero-img { max-height: 100%; }

@@ -24,7 +24,6 @@ docs/          step-by-step guides (below)
 ```bash
 corepack enable          # or: npm i -g pnpm   (any pnpm 9+ works)
 pnpm install
-pnpm approve-builds      # run build scripts
 pnpm dev                 # http://localhost:4321 — shows placeholder content until you connect a bucket
 pnpm test                # unit tests (site + content tool)
 ```
@@ -35,7 +34,7 @@ Commands from the repo root:
 |---|---|
 | `pnpm dev` / `pnpm build` / `pnpm preview` | develop, build, preview the site |
 | `pnpm test` / `pnpm test:e2e` | unit tests / browser + accessibility tests |
-| `pnpm content <command>` | the content tool (`new-collection`, `add-photo`, `publish`, `login`, `check`, …) |
+| `pnpm content <command>` | the content tool (`new-collection`, `add-photo`, `edit-photo`, `reorder`, `size`, `publish`, `login`, `check`, …) |
 | `pnpm deploy:site` | build and deploy the site to Cloudflare |
 
 > Use `pnpm deploy:site`, not `pnpm deploy`: `pnpm deploy` is a different built-in pnpm command.

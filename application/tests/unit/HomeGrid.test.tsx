@@ -48,6 +48,16 @@ describe('HomeGrid', () => {
     expect(grid.style.getPropertyValue('--cols')).toBe('775fr 390fr 732fr');
   });
 
+  it('uses singular wording for one frame, one collection and one photograph', () => {
+    const one: HomeItem[] = [{ ...items(1)[0], frames: 1 }];
+    render(
+      <HomeGrid items={one} mosaic={[]} collectionsCount={1} photoCount={1}
+        name="Elena Marsh" role="Photographer" email="a@b.c" labels={labels} />,
+    );
+    expect(screen.getByText('Portra 400 — 1 frame')).toBeTruthy();
+    expect(screen.getByText('1 collection · 1 photograph')).toBeTruthy();
+  });
+
   it('keeps decorative cover images out of the accessibility tree', () => {
     const { container } = setup(1);
     expect(container.querySelector('.cell [role="img"]')).toBeNull();

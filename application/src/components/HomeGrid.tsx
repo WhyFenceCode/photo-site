@@ -1,7 +1,7 @@
 import { useState, type CSSProperties } from 'react';
 import Picture from './Picture';
 import type { Photo } from '../lib/types';
-import { pad } from '../lib/format';
+import { pad, plural } from '../lib/format';
 
 export interface HomeItem {
   slug: string; title: string; description: string; frames: number; films: string;
@@ -79,7 +79,7 @@ export default function HomeGrid({ items, mosaic, collectionsCount, photoCount, 
           <div className="info">
             <h3 id={`t-${c.slug}`}>{c.title}</h3>
             <p id={`d-${c.slug}`}>{c.description}</p>
-            <span className="mono">{[c.films, `${c.frames} frames`].filter(Boolean).join(' — ')}</span>
+            <span className="mono">{[c.films, plural(c.frames, 'frame')].filter(Boolean).join(' — ')}</span>
           </div>
         </a>
       ))}
@@ -93,7 +93,7 @@ export default function HomeGrid({ items, mosaic, collectionsCount, photoCount, 
         <span className="mono">[{labels.archiveTag}]</span>
         <div>
           <h3>{labels.archiveTitle} <span className="arrow" aria-hidden="true">→</span></h3>
-          <span className="mono">{collectionsCount} collections · {photoCount} photographs</span>
+          <span className="mono">{plural(collectionsCount, 'collection')} · {plural(photoCount, 'photograph')}</span>
         </div>
       </a>
     </div>

@@ -12,11 +12,12 @@ interface Props {
 
 export default function CollectionViewer({ collection: c, number, closeHref, labels }: Props) {
   const N = c.photos.length;
+  const multi = N > 1; // with one photo there is nothing to step through
   const [i, setI] = useState(0);
   const closeRef = useRef<HTMLAnchorElement>(null);
   const thumbsRef = useRef<HTMLDivElement>(null);
   const swipe = useRef<{ x: number; y: number } | null>(null);
-  const step = (d: number) => setI((v) => (v + d + N) % N);
+  const step = (d: number) => { if (multi) setI((v) => (v + d + N) % N); };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -27,7 +28,7 @@ export default function CollectionViewer({ collection: c, number, closeHref, lab
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [N]);
+  }, [N, multi]);
 
   // Keep the active thumbnail centred in its strip (without scrolling the page).
   useEffect(() => {
@@ -57,7 +58,12 @@ export default function CollectionViewer({ collection: c, number, closeHref, lab
   };
 
   return (
-    <div className="viewer" role="region" aria-roledescription="carousel" aria-label={`${c.title} photographs`}>
+    <div
+      className={multi ? 'viewer' : 'viewer single'}
+      role="region"
+      aria-roledescription={multi ? 'carousel' : undefined}
+      aria-label={multi ? `${c.title} photographs` : `${c.title} photograph`}
+    >
       <div className="stage">
         <header className="vtitle mono">
           <span aria-hidden="true">[{pad(number)}]</span>
@@ -70,40 +76,50 @@ export default function CollectionViewer({ collection: c, number, closeHref, lab
           style={{ viewTransitionName: `cover-${c.slug}` } as CSSProperties}
           onPointerDown={onDown} onPointerUp={onUp} onPointerCancel={() => (swipe.current = null)}
         >
-          <div className="hero-in" key={p.id} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${N}`}>
+          <div
+            className="hero-in"
+            key={p.id}
+            role={multi ? 'group' : undefined}
+            aria-roledescription={multi ? 'slide' : undefined}
+            aria-label={multi ? `${i + 1} of ${N}` : undefined}
+          >
             <Picture photo={p} palette={c.palette} index={i} sizes="(min-width:761px) 60vw, 100vw" eager fit="contain" className="hero-img" />
           </div>
         </div>
 
         {(p.title || p.caption) && <p className="caption">{[p.title, p.caption].filter(Boolean).join(' — ')}</p>}
 
-        <div className="pn mono" role="group" aria-label="Photo navigation">
-          <button type="button" onClick={() => step(-1)}><span aria-hidden="true">←&nbsp;</span>{labels.previous}</button>
-          <button type="button" onClick={() => step(1)}>{labels.next}<span aria-hidden="true">&nbsp;→</span></button>
-        </div>
+        {multi && (
+          <div className="pn mono" role="group" aria-label="Photo navigation">
+            <button type="button" onClick={() => step(-1)}><span aria-hidden="true">←&nbsp;</span>{labels.previous}</button>
+            <button type="button" onClick={() => step(1)}>{labels.next}<span aria-hidden="true">&nbsp;→</span></button>
+          </div>
+        )}
         {meta.length > 0 && <p className="meta mono">{meta.join(' · ')}</p>}
       </div>
 
-      <div className="thumbs" ref={thumbsRef} role="group" aria-label="Choose a photograph">
-        {c.photos.map((t, k) => (
-          <button
-            key={t.id} type="button" className="th" onClick={() => setI(k)}
-            aria-current={k === i ? 'true' : undefined}
-            aria-label={`Show photograph ${k + 1} of ${N}${t.alt ? `: ${t.alt}` : ''}`}
-          >
-            <Picture photo={t} palette={c.palette} index={k} alt="" sizes="64px" className="fill" />
-          </button>
-        ))}
-      </div>
+      {multi && (
+        <div className="thumbs" ref={thumbsRef} role="group" aria-label="Choose a photograph">
+          {c.photos.map((t, k) => (
+            <button
+              key={t.id} type="button" className="th" onClick={() => setI(k)}
+              aria-current={k === i ? 'true' : undefined}
+              aria-label={`Show photograph ${k + 1} of ${N}${t.alt ? `: ${t.alt}` : ''}`}
+            >
+              <Picture photo={t} palette={c.palette} index={k} alt="" sizes="64px" className="fill" />
+            </button>
+          ))}
+        </div>
+      )}
 
       <p className="side mono">{c.description} {c.year}.</p>
 
       <div className="foot">
         <a ref={closeRef} className="back mono" href={closeHref}><span aria-hidden="true">←&nbsp;</span>{labels.close}</a>
-        <p className="count mono" aria-hidden="true">{pad(i + 1)} / {pad(N)}</p>
+        {multi && <p className="count mono" aria-hidden="true">{pad(i + 1)} / {pad(N)}</p>}
       </div>
 
-      <p className="sr-only" role="status" aria-live="polite">Photograph {i + 1} of {N}. {p.alt}</p>
+      {multi && <p className="sr-only" role="status" aria-live="polite">Photograph {i + 1} of {N}. {p.alt}</p>}
     </div>
   );
 }
