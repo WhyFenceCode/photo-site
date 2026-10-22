@@ -1,24 +1,25 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Everything personal or site-specific lives here. Edit this file, rebuild, done.
+// Everything  site-specific lives here. Edit this file, rebuild, done.
 // ─────────────────────────────────────────────────────────────────────────────
+
 export const site = {
   lang: 'en',
-  url: 'https://example.com', // your public site URL (no trailing slash)
-  name: 'Elena Marsh',
+  url: 'https://photos.torstenyoung.com', // your public site URL (no trailing slash)
+  name: 'Torsten Young',
   role: 'Photographer',
-  description: 'Analogue photography by Elena Marsh.',
+  description: 'Photography by Torsten Young.',
 
   contact: {
-    email: 'hello@example.com',
+    email: 'contact.photos@torstenyoung.com',
     instagram: '', // optional, e.g. 'https://instagram.com/yourname'
   },
 
   media: {
     // Public URL of your R2 bucket's custom domain, e.g. 'https://media.example.com'.
     // Leave empty to run with built-in placeholder content.
-    baseUrl: '',
+    baseUrl: 'https://media.photos.torstenyoung.com',
     // Name of the R2 bucket the content tool uploads to (not secret).
-    bucket: '',
+    bucket: 'photos-media',
     // Optional: only needed if your Cloudflare login has more than one account.
     accountId: '',
   },
@@ -48,10 +49,10 @@ export const site = {
 
   // Used by the /legal pages.
   legal: {
-    owner: 'Elena Marsh',
-    jurisdiction: 'Your Province/State, Country',
+    owner: 'Torsten Young',
+    jurisdiction: 'Canada',
     updated: '22 October 2026',
-    copyrightStartYear: 2023,
+    copyrightStartYear: 2025,
   },
 };
 

@@ -24,6 +24,7 @@ docs/          step-by-step guides (below)
 ```bash
 corepack enable          # or: npm i -g pnpm   (any pnpm 9+ works)
 pnpm install
+pnpm approve-builds      # run build scripts
 pnpm dev                 # http://localhost:4321 — shows placeholder content until you connect a bucket
 pnpm test                # unit tests (site + content tool)
 ```
