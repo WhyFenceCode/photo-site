@@ -110,9 +110,7 @@
   .archive .arrow { display: inline-block; transition: transform .6s var(--ease); }
   .archive:hover .arrow { transform: translateX(10px); }
   .mosaic { position: absolute; right: 18px; top: 18px; bottom: 18px; width: 42%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; opacity: .9; }
-  .mosaic i { display: block; overflow: hidden; border-radius: 1px; transition: transform .8s var(--ease); }
-  .archive:hover .mosaic i:nth-child(odd) { transform: translateY(-6px); }
-  .archive:hover .mosaic i:nth-child(even) { transform: translateY(6px); }
+  .mosaic i { display: block; overflow: hidden; border-radius: 1px; }
   @media (max-width: 760px) { .mosaic { height: 120px; top: 18px; bottom: auto; } .archive { padding-top: 150px; } }
 
   /* ── collections list ──────────────────────────── */
