@@ -1,3 +1,9 @@
-allowBuilds:
-  esbuild: true
-  sharp: true
+packages:
+  - application
+  - server
+
+# pnpm 10 blocks dependency install scripts unless allow-listed.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - workerd

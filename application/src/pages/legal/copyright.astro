@@ -1,0 +1,35 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import site from '../../../site.config.mjs';
+const year = new Date().getFullYear();
+const start = site.legal.copyrightStartYear;
+---
+<LegalLayout title="Copyright &amp; licensing" description={`How ${site.name}'s photographs and text may be used.`}>
+  <p>© {start === year ? year : `${start}–${year}`} {site.legal.owner}. All rights reserved.</p>
+
+  <h2>My work</h2>
+  <p>Every photograph, caption, description and piece of text on this website was created by {site.legal.owner}, who owns the copyright. The site contains no third-party photographs or content.</p>
+
+  <h2>What you may do</h2>
+  <ul>
+    <li>View the site and share a link to it or to a specific collection.</li>
+    <li>Quote short excerpts of the text with credit and a link back.</li>
+  </ul>
+
+  <h2>What needs permission</h2>
+  <ul>
+    <li>Copying, downloading, republishing, printing, editing or selling any photograph.</li>
+    <li>Using any photograph in advertising, products, merchandise or publications.</li>
+    <li>Using any content to train, fine-tune or evaluate machine-learning or AI systems, or scraping the site for that purpose.</li>
+  </ul>
+  <p>To ask about licensing or commissions, email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>. Please say what you’d like to use, where and for how long.</p>
+
+  <h2>Credit</h2>
+  <p>When a photograph is used with permission, please credit it as “Photograph by {site.legal.owner}” unless we agree otherwise.</p>
+
+  <h2>Software and fonts</h2>
+  <p>The site is built with open-source software (Astro, React and Tailwind CSS) and set in the Inter and JetBrains Mono typefaces, both licensed under the SIL Open Font License. These are credited to their authors and don’t affect the copyright in my photographs or text.</p>
+
+  <h2>Removal requests</h2>
+  <p>If you believe something on this site infringes your rights, or you appear in a photograph and want it removed, email me and I’ll respond promptly.</p>
+</LegalLayout>

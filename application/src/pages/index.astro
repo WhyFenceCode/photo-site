@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HomeGrid from '../components/HomeGrid';
+import site from '../../site.config.mjs';
+import { getCollections, getFeatured, coverOf } from '../lib/content';
+import { filmsOf } from '../lib/format';
+import { mediaUrl } from '../lib/media';
+
+const all = await getCollections();
+const featured = await getFeatured();
+
+const items = featured.map((c) => ({
+  slug: c.slug, title: c.title, description: c.description,
+  frames: c.photos.length, films: filmsOf(c), cover: coverOf(c), palette: c.palette,
+}));
+
+// Six tiles for the archive mosaic: each cover first, then further frames.
+const tiles: { photo?: any; palette?: string[]; seed: number }[] = [];
+for (let round = 0; tiles.length < 6 && round < 6; round++) {
+  for (const c of all) {
+    const photo = c.photos[round];
+    if (photo && tiles.length < 6) tiles.push({ photo: round === 0 ? coverOf(c) : photo, palette: c.palette, seed: tiles.length + 1 });
+  }
+}
+const photoCount = all.reduce((n, c) => n + c.photos.length, 0);
+const og = coverOf(featured[0])?.files?.webp?.at(-1)?.path;
+---
+<Layout image={og ? mediaUrl(og) : undefined}>
+  <main id="main" class="fullview home">
+    <h1 class="sr-only">{site.name} — {site.role}</h1>
+    <HomeGrid
+      client:idle
+      items={items}
+      mosaic={tiles}
+      collectionsCount={all.length}
+      photoCount={photoCount}
+      name={site.name}
+      role={site.role}
+      email={site.contact.email}
+      labels={site.labels}
+    />
+  </main>
+</Layout>

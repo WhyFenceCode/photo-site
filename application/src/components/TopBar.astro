@@ -1,0 +1,14 @@
+---
+import site from '../../site.config.mjs';
+interface Props { current?: 'home' | 'collections' | 'legal'; flow?: boolean }
+const { current, flow = false } = Astro.props;
+const L = site.labels;
+---
+<header class:list={['bar', flow && 'flow']}>
+  <a href="/" class="mono" aria-label={`${site.name} — ${L.home}`}>{site.name}</a>
+  <nav class="mono" aria-label="Primary">
+    <a href="/" class="only-desktop" aria-current={current === 'home' ? 'page' : undefined}>{L.home}</a>
+    <a href="/collections" aria-current={current === 'collections' ? 'page' : undefined}>{L.collections}</a>
+  </nav>
+  <a href={`mailto:${site.contact.email}`} class="mono">{L.contact}</a>
+</header>

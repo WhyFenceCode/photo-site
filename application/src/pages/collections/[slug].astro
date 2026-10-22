@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../../components/TopBar.astro';
+import Footer from '../../components/Footer.astro';
+import CollectionViewer from '../../components/CollectionViewer';
+import site from '../../../site.config.mjs';
+import { getCollections, coverOf } from '../../lib/content';
+import { mediaUrl } from '../../lib/media';
+
+export async function getStaticPaths() {
+  const all = await getCollections();
+  return all.map((collection, i) => ({ params: { slug: collection.slug }, props: { collection, number: i + 1 } }));
+}
+const { collection, number } = Astro.props;
+const og = coverOf(collection)?.files?.webp?.at(-1)?.path;
+---
+<Layout title={collection.title} description={collection.description} image={og ? mediaUrl(og) : undefined}>
+  <TopBar current="collections" />
+  <main id="main" class="fullview">
+    <CollectionViewer client:load collection={collection} number={number} closeHref="/collections" labels={site.labels} />
+    <Footer class="md:hidden" />
+  </main>
+</Layout>

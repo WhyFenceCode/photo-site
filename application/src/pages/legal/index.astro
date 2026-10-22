@@ -1,0 +1,14 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import site from '../../../site.config.mjs';
+---
+<LegalLayout title="Legal" description={`Legal information for ${site.name}'s photography website.`}>
+  <p>This website is a portfolio of photographs. It contains only my own work, has no accounts, forms or advertising, and doesn’t track visitors.</p>
+  <ul>
+    <li><a href="/legal/privacy">Privacy policy</a> — what is and isn’t collected</li>
+    <li><a href="/legal/copyright">Copyright &amp; licensing</a> — how my photographs may be used</li>
+    <li><a href="/legal/terms">Terms of use</a> — the ground rules for using this site</li>
+    <li><a href="/legal/accessibility">Accessibility statement</a> — how the site is built for everyone</li>
+  </ul>
+  <p>Questions about any of these: <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p>
+</LegalLayout>

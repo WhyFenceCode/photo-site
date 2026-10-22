@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../../components/TopBar.astro';
+import Footer from '../../components/Footer.astro';
+import Picture from '../../components/Picture';
+import site from '../../../site.config.mjs';
+import { getCollections, coverOf } from '../../lib/content';
+
+const collections = await getCollections();
+---
+<Layout title={site.labels.collections} description={`All photography collections by ${site.name}.`}>
+  <TopBar current="collections" />
+  <main id="main" class="fullview">
+    <h1 class="sr-only">{site.labels.collections}</h1>
+    <div class="rows-wrap" role="region" aria-label={site.labels.collections} tabindex="0">
+      <ul class="rows">
+        {collections.map((c, i) => (
+          <li class="lc" style={`animation-delay:${i * 90 + 200}ms`}>
+            <a href={`/collections/${c.slug}`}>
+              <div class="ph" style={`view-transition-name:cover-${c.slug}`}>
+                <Picture photo={coverOf(c)} palette={c.palette} alt="" sizes="(min-width:761px) 22vw, 50vw" className="fill" />
+              </div>
+              <span class="cap mono">{c.title} — {c.year}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <Footer pin />
+  </main>
+</Layout>

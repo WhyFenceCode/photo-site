@@ -1,0 +1,15 @@
+---
+import site from '../../site.config.mjs';
+interface Props { pin?: boolean; class?: string }
+const { pin = false, class: cls } = Astro.props;
+const year = new Date().getFullYear();
+const start = site.legal.copyrightStartYear;
+---
+<footer class:list={['site-foot', pin && 'pin', cls]}>
+  <small>© {start === year ? year : `${start}–${year}`} {site.legal.owner}</small>
+  <nav aria-label="Legal">
+    <a href="/legal">{site.labels.legal}</a>
+    <a href="/legal/privacy">Privacy</a>
+    <a href="/legal/copyright">Copyright</a>
+  </nav>
+</footer>

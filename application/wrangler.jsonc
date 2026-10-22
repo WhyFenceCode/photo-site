@@ -1,0 +1,12 @@
+{
+  // Static site only: no Worker script runs, so requests are served as free,
+  // unlimited static assets.
+  "name": "photography-site",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+  // Attach your domain once it is on Cloudflare:
+  // "routes": [{ "pattern": "www.example.com", "custom_domain": true }]
+}

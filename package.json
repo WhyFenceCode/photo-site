@@ -1,13 +1,15 @@
 {
-  "name": "photo-site",
-  "type": "module",
+  "name": "photography-site",
   "private": true,
+  "engines": { "node": ">=20.12", "pnpm": ">=9" },
   "scripts": {
-    "index": "node scripts/build-index.mjs",
-    "dev": "pnpm run index && astro dev",
-    "build": "pnpm run index && astro build",
-    "preview": "astro preview"
-  },
-  "dependencies": { "astro": "^5.0.0", "sharp": "^0.33.0", "yaml": "^2.5.0" },
-  "pnpm": { "onlyBuiltDependencies": ["esbuild", "sharp"] }
+    "dev": "pnpm --filter application dev",
+    "build": "pnpm --filter application build",
+    "preview": "pnpm --filter application preview",
+    "deploy:site": "pnpm --filter application deploy:site",
+    "check": "pnpm --filter application check",
+    "test": "pnpm -r --if-present test",
+    "test:e2e": "pnpm --filter application test:e2e",
+    "content": "node server/src/cli.js"
+  }
 }

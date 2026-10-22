@@ -1,0 +1,23 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import site from '../../../site.config.mjs';
+---
+<LegalLayout title="Accessibility statement" description={`Accessibility of ${site.name}'s website.`}>
+  <p>I want everyone to be able to enjoy this site. It is designed to meet the Web Content Accessibility Guidelines (WCAG) 2.2, level AA.</p>
+
+  <h2>What’s in place</h2>
+  <ul>
+    <li>Every page can be used with a keyboard, with a visible focus indicator. In a collection, the left and right arrow keys move between photographs and Escape returns to the collection list.</li>
+    <li>Photographs have text descriptions (alt text) for screen reader users.</li>
+    <li>Pages use landmarks, headings, labelled controls and live announcements when the photograph changes.</li>
+    <li>Animations are switched off for visitors who ask their device to reduce motion.</li>
+    <li>The site follows your light or dark colour preference, and text meets AA contrast on its background.</li>
+    <li>Layouts adapt to phones and tablets, and text can be zoomed.</li>
+  </ul>
+
+  <h2>Known limitations</h2>
+  <p>Some text over photographs on the home page appears on hover or focus (and is always visible on touch screens). Contrast over a photograph depends on the image itself.</p>
+
+  <h2>Feedback</h2>
+  <p>If something doesn’t work for you, email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> and I’ll do my best to fix it or offer another way to see the content.</p>
+</LegalLayout>

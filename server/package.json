@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Content tooling: build web-ready images + metadata and publish them to Cloudflare R2 via Wrangler.",
+  "scripts": { "gallery": "node src/cli.js", "test": "node --test" },
+  "engines": { "node": ">=20.12" },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "sharp": "^0.34.0",
+    "wrangler": "^4.0.0"
+  }
+}
